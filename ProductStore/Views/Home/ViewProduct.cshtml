@@ -1,0 +1,97 @@
+﻿@model ProductStore.Models.Product
+
+@{
+    ViewBag.Title = "Admin";
+}
+<h2>List of Products</h2>
+<div class="content">
+    <div class="float-left">
+      @*  <ul id="update-products" data-bind="foreach: products">
+            <li>
+                <div style="visibility: hidden">
+                    <div class="item">Product ID</div>
+                    <span data-bind="text: $data.Id"></span>
+                </div>
+                <div>
+                    <div class="item">Product Name</div>
+                    <input type="text" data-bind="value: $data.Name" />
+                </div>
+                <div>
+                    <div class="item">Product Price</div>
+                    <input type="text" data-bind="value: $data.Price" />
+                </div>
+                <div>
+                    <div class="item">Actual Cost</div>
+                    <input type="text" data-bind="value: $data.ActualCost" />
+                </div>
+              
+            </li>
+        </ul>*@
+             <table class="details ui-widget-content table">
+            <thead>
+                <tr>
+                    <td>Product Name</td>
+                    <td>Product Price</td>
+                    <td>Actual Cost</td>
+                    <td></td>
+                </tr>
+            </thead>
+            <tbody data-bind="foreach: products">
+                <tr>
+                    <td><span data-bind="text: $data.Name"></span></td>
+                     <td class="qty"><span  data-bind="text: $data.Price""></span></td>
+                     <td class="qty"><span  data-bind="text: $data.ActualCost""></span></td>
+
+                    
+                </tr>
+            </tbody>
+        </table>
+    </div>
+ 
+   
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript" src="@Url.Content("~/Scripts/knockout-2.1.0.js")"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".non-zero-num").val($(this).val() == 0 ? '' : $(this).val());
+        })
+        function ProductsViewModel() {
+            var self = this;
+            self.products = ko.observableArray();
+
+            var baseUri = '@ViewBag.ApiUrl';
+
+
+
+            self.create = function (formElement) {
+                // If valid, post the serialized form data to the web api
+                $(formElement).validate();
+                if ($(formElement).valid()) {
+                    $.post(baseUri, $(formElement).serialize(), null, "json")
+                        .done(function (o) { self.products.push(o); });
+                }
+            }
+
+            self.update = function (product) {
+                $.ajax({ type: "PUT", url: "/api/admin" + '/' + product.Id, data: product });
+            }
+
+
+            self.remove = function (product) {
+                // First remove from the server, then from the UI
+
+                $.ajax({ type: "DELETE", url: "/api/admin" + '/' + product.Id })
+                .done(function () { self.products.remove(product); });
+            }
+
+            $.getJSON(baseUri, self.products);
+        }
+
+        $(document).ready(function () {
+            ko.applyBindings(new ProductsViewModel());
+        })
+    </script>
+}
+

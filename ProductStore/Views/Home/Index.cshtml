@@ -1,7 +1,7 @@
 ﻿<div class="content">
     <!-- List of products -->
     <div style="float: left; width: 300px;">
-        <h1>Products</h1>
+        <h1>Products Available</h1>
         <ul id="products" data-bind="foreach: products" class="list-box">
             <li>
                 <h3 data-bind="text: Name"></h3>
@@ -13,6 +13,26 @@
                 </div>
             </li>
         </ul>
+       @*   <table class="details ui-widget-content table">
+            <thead>
+                <tr>
+                    <td>Product Name</td>
+                    <td>Quantity</td>
+                    <td>Price</td>
+                    <td></td>
+                </tr>
+            </thead>
+            <tbody data-bind="foreach: products">
+                <tr>
+                    <td><span data-bind="text: Name"></span></td>
+                     <td class="qty"><span  data-bind="text: stock""></span></td>
+                    <td>$<span  data-bind="text: '$' + Price"></span></td>
+                    <td data-bind="if: $parent.loggedIn"> 
+                    <button data-bind="click: addItemToCart" class="btn">Add to Order</button>
+                 </td>
+                </tr>
+            </tbody>
+        </table>*@
     </div>
 
     <!-- Cart -->

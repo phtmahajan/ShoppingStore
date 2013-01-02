@@ -3,12 +3,12 @@
 @{
     ViewBag.Title = "ProductCategory";
 }
-<h2>Admin</h2>
+<h2>List Of Categories</h2>
 <div class="content">
     <div class="float-left">
         <ul id="update-products" data-bind="foreach: categories">
             <li>
-                <div>
+                <div style="visibility:hidden">
                     <div class="item">Category ID</div>
                     <span data-bind="text: $data.Id"></span>
                 </div>
@@ -21,7 +21,7 @@
                 <div>
                     <input type="button" value="Update" data-bind="click: $root.update" />
                     <input type="button" value="Delete Item" data-bind="click: $root.remove" />
-                     <input type="button" value="View Items" data-bind="click: $root.NewProduct" />
+                     <input type="button" value="View Items" data-bind="click: $root.ViewProduct" />
                       <input type="button" value="Add Item" data-bind="click: $root.NewProduct" />
                 </div>
             </li>
@@ -29,7 +29,7 @@
     </div>
 
     <div class="float-right">
-        <h2>Add New Product</h2>
+        <h2>Add New Category</h2>
         <form id="product" data-bind="submit: create">
             @Html.ValidationSummary(true)
             <fieldset>
@@ -74,10 +74,15 @@
             }
 
             self.NewProduct = function (category) {
-
                 window.location = "/Home/Admin?ID=" + category.Id;
                 //$.ajax({ type: "GET", url: "/Home/Admin" , data: category });
             }
+            self.ViewProduct = function (category) {
+                window.location = "/Home/ViewProduct?ID=" + category.Id;
+                //$.ajax({ type: "GET", url: "/Home/Admin" , data: category });
+            }
+
+
             $.getJSON(baseUri, self.categories);
         }
 
