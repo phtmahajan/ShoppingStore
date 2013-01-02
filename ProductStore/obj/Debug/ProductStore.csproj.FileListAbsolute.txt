@@ -142,6 +142,5 @@ D:\Projects\ShoppingStore\ShoppingStore\ProductStore\bin\DotNetOpenAuth.OAuth.Co
 D:\Projects\ShoppingStore\ShoppingStore\ProductStore\bin\DotNetOpenAuth.OAuth.xml
 D:\Projects\ShoppingStore\ShoppingStore\ProductStore\bin\DotNetOpenAuth.OpenId.xml
 D:\Projects\ShoppingStore\ShoppingStore\ProductStore\bin\DotNetOpenAuth.OpenId.RelyingParty.xml
-D:\Projects\ShoppingStore\ShoppingStore\ProductStore\obj\Debug\ProductStore.csprojResolveAssemblyReference.cache
 D:\Projects\ShoppingStore\ShoppingStore\ProductStore\obj\Debug\ProductStore.dll
 D:\Projects\ShoppingStore\ShoppingStore\ProductStore\obj\Debug\ProductStore.pdb

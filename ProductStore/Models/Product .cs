@@ -14,7 +14,8 @@ using System.Web;
         public decimal Price { get; set; }
         public decimal ActualCost { get; set; }
 
-        public int CategoryID { get; set; } 
+        public int CategoryID { get; set; }
+        public int Quantity { get; set; }
 
     }
 }

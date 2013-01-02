@@ -17,7 +17,7 @@ namespace ProductStore.Controllers
         private IQueryable<ProductDTO> MapProducts()
         {
             return from p in db.Products
-                   select new ProductDTO() { Id = p.Id, Name = p.Name, Price = p.Price };
+                   select new ProductDTO() { Id = p.Id, Name = p.Name, Price = p.Price, Quantity = p.Quantity };
         }
 
         public IEnumerable<ProductDTO> GetProducts()

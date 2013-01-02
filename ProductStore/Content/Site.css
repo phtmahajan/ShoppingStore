@@ -763,7 +763,7 @@ li {
     list-style-type: none;
 }
         
-#products li {
+/*#products li {
     width: 300px;
     background-color: #aaf;
     font-size: 1.5em;
@@ -771,7 +771,7 @@ li {
     color: #ff0;
     margin: 0 0 5px 0;
     padding: 0 5px 0 5px;
-}
+}*/
         
 .price  {
     float: right;
@@ -810,3 +810,65 @@ li {
         display: inline-block;
         text-align: right;
 }
+/*~~~~~~~~~~~~~~~~~~~~~~  list-box  */
+.list-box {
+	float:left;
+	width:100%;
+	padding:0;
+	border:1px solid #c8c8c8;
+}
+	.list-box li {
+		float:left;
+		width:96%;
+		margin-top:3%;
+		padding:2%;
+		background:#c8c8c8;
+	}
+		.list-box li:first-child {
+			margin-top:0;
+		}
+		.list-box li h3 {
+			float:left;
+			width:auto;
+			color:#323232;
+			margin:0;
+		}
+		.list-box li span {
+			float:right;
+			font-size:14px;
+			line-height:18px;
+			color:#ff0000;
+		}
+		.list-box li div {
+			float:left;
+			width:100%;
+			margin-top:3%;
+			padding-top:3%;
+			border-top:1px solid #EFEEEF;
+		}
+		.list-box li a {
+			font-size:14px;
+			line-height:18px;
+			font-weight:bold;
+			text-decoration:none;
+		}
+			.list-box li a:hover {
+				text-decoration:underline;
+				background:none;
+			}
+			
+				/*~~~~~~~~~~~~~~~~~~~~~  table  */
+.table {
+	border:1px solid #c8c8c8;
+}
+/*~~~~~~~~~~~~~~~~~~~~~  button */
+.btn {
+				float:left;
+				font-size:12px !important;
+				line-height:16px;
+				padding:1% !important;
+				background:#D3DCE0 !important;
+			}
+				.btn:hover {
+					background:#c8c8c8;
+				}
