@@ -171,16 +171,22 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Interface\IOrderRepository.cs" />
+    <Compile Include="Interface\IProductRepository.cs" />
+    <Compile Include="Interface\IProuctCategoryRepository.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\OrderDetail.cs" />
     <Compile Include="Models\OrderDTO.cs" />
-    <Compile Include="Models\OrdersContext.cs" />
+    <Compile Include="DataContext\OrdersContext.cs" />
     <Compile Include="Models\OrdersContextInitializer.cs" />
     <Compile Include="Models\Product .cs" />
     <Compile Include="Models\ProductCategory.cs" />
     <Compile Include="Models\ProductDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\OrderRepository.cs" />
+    <Compile Include="Repository\ProductCategoryRepository.cs" />
+    <Compile Include="Repository\ProductRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />

@@ -4,32 +4,28 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using ProductStore.Interface;
 using ProductStore.Models;
+using ProductStore.Repository;
 
 
 namespace ProductStore.Controllers
 {
     public class ProductsController : ApiController
     {
-        private OrdersContext db = new OrdersContext();
+      
 
         // Project products to product DTOs.
-        private IQueryable<ProductDTO> MapProducts()
-        {
-            return from p in db.Products
-                   select new ProductDTO() { Id = p.Id, Name = p.Name, Price = p.Price, Quantity = p.Quantity };
-        }
+        private readonly IProductRepository repository = new ProductRepository();
 
         public IEnumerable<ProductDTO> GetProducts()
         {
-            return MapProducts().AsEnumerable();
+            return repository.MapProducts().AsEnumerable();
         }
 
         public ProductDTO GetProduct(int id)
         {
-            var product = (from p in MapProducts()
-                           where p.Id == 1
-                           select p).FirstOrDefault();
+            var product = repository.GetProduct(id);
             if (product == null)
             {
                 throw new HttpResponseException(
@@ -40,7 +36,7 @@ namespace ProductStore.Controllers
 
         protected override void Dispose(bool disposing)
         {
-            db.Dispose();
+            repository.Dispose();
             base.Dispose(disposing);
         }
     }

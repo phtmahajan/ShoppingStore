@@ -4,28 +4,32 @@ using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
+
 using System.Net;
 using System.Net.Http;
-using System.Web;
 using System.Web.Http;
+using ProductStore.Interface;
 using ProductStore.Models;
+using ProductStore.Repository;
 
 namespace ProductStore.Controllers
 {
     public class ProductCategoryController : ApiController
     {
-        private OrdersContext db = new OrdersContext();
+     
 
+        // Project products to product DTOs.
+        private readonly IProuctCategoryRepository repository = new ProductCategoryRepository();
         // GET api/ProductCategory
         public IEnumerable<ProductCategory> GetProductCategories()
         {
-            return db.ProductCategories.AsEnumerable();
+            return repository.GetProductCategories();
         }
 
         // GET api/ProductCategory/5
         public ProductCategory GetProductCategory(int id)
         {
-            ProductCategory productcategory = db.ProductCategories.Find(id);
+            ProductCategory productcategory = repository.GetProductCategory(id);
             if (productcategory == null)
             {
                 throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.NotFound));
@@ -39,11 +43,11 @@ namespace ProductStore.Controllers
         {
             if (ModelState.IsValid && id == productcategory.Id)
             {
-                db.Entry(productcategory).State = EntityState.Modified;
+               
 
                 try
                 {
-                    db.SaveChanges();
+                    repository.PutProductCategory(id, productcategory);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -63,8 +67,7 @@ namespace ProductStore.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.ProductCategories.Add(productcategory);
-                db.SaveChanges();
+                repository.PostProductCategory(productcategory);
 
                 HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.Created, productcategory);
                 response.Headers.Location = new Uri(Url.Link("DefaultApi", new { id = productcategory.Id }));
@@ -79,17 +82,17 @@ namespace ProductStore.Controllers
         // DELETE api/ProductCategory/5
         public HttpResponseMessage DeleteProductCategory(int id)
         {
-            ProductCategory productcategory = db.ProductCategories.Find(id);
+            ProductCategory productcategory = repository.FindProductCategories(id);
             if (productcategory == null)
             {
                 return Request.CreateResponse(HttpStatusCode.NotFound);
             }
 
-            db.ProductCategories.Remove(productcategory);
+            repository.RemoveProductCategories(productcategory);
 
             try
             {
-                db.SaveChanges();
+                repository.Save();
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -101,7 +104,7 @@ namespace ProductStore.Controllers
 
         protected override void Dispose(bool disposing)
         {
-            db.Dispose();
+            repository.Dispose();
             base.Dispose(disposing);
         }
     }

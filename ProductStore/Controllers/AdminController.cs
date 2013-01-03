@@ -8,14 +8,18 @@ using System.Net;
 using System.Net.Http;
 using System.Web;
 using System.Web.Http;
+using ProductStore.Interface;
 using ProductStore.Models;
+using ProductStore.Repository;
 
 namespace ProductStore.Controllers
 {
     public class AdminController : ApiController
     {
-        private OrdersContext db = new OrdersContext();
         
+        // Project products to product DTOs.
+        private readonly IProductRepository repository = new ProductRepository();
+
         /// <summary>
         // GET api/Admin
         //Gets all products.
@@ -25,7 +29,7 @@ namespace ProductStore.Controllers
         /// <returns></returns>
         public IEnumerable<Product> GetProducts()
         {
-            return db.Products.AsEnumerable();
+            return repository.GetProducts();
         }
         
         /// <summary>
@@ -38,8 +42,8 @@ namespace ProductStore.Controllers
         /// <returns></returns>
         public IEnumerable<Product> GetProduct(int id)
         {
-            return db.Products.Where(o => o.CategoryID == id);
-            
+            //return db.Products.Where(o => o.CategoryID == id);
+            return repository.GetAllProduct(id);
         }
         
         /// <summary>
@@ -55,11 +59,9 @@ namespace ProductStore.Controllers
         {
             if (ModelState.IsValid && id == product.Id)
             {
-                db.Entry(product).State = EntityState.Modified;
-
                 try
                 {
-                    db.SaveChanges();
+                    repository.PutProduct(id, product);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -85,10 +87,8 @@ namespace ProductStore.Controllers
         public HttpResponseMessage PostProduct(Product product)
         {
             if (ModelState.IsValid)
-            {
-                db.Products.Add(product);
-                db.SaveChanges();
-
+                {
+                    repository.PostProduct(product);
                 HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.Created, product);
                 response.Headers.Location = new Uri(Url.Link("DefaultApi", new { id = product.Id }));
                 return response;
@@ -109,17 +109,17 @@ namespace ProductStore.Controllers
         /// <returns></returns>
         public HttpResponseMessage DeleteProduct(int id)
         {
-            Product product = db.Products.Find(id);
+            Product product = repository.FindProduct(id);
             if (product == null)
             {
                 return Request.CreateResponse(HttpStatusCode.NotFound);
             }
 
-            db.Products.Remove(product);
+            repository.RemoveProduct(product);
 
             try
             {
-                db.SaveChanges();
+                repository.Save();
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -131,7 +131,7 @@ namespace ProductStore.Controllers
 
         protected override void Dispose(bool disposing)
         {
-            db.Dispose();
+            repository.Dispose();
             base.Dispose(disposing);
         }
     }

@@ -1,29 +1,34 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using ProductStore.Interface;
 using ProductStore.Models;
+using ProductStore.Repository;
 
 namespace ProductStore.Controllers
 {
-   [Authorize]
+    [Authorize]
     public class OrdersController : ApiController
     {
-        private OrdersContext db = new OrdersContext();
-
+        
+        private readonly IOrderRepository repository = new OrderRepository();
         // GET api/Orders
         public IEnumerable<Order> GetOrders()
         {
-            return db.Orders.Where(o => o.Customer == User.Identity.Name);
+            return repository.GetOrders().Where(o => o.Customer == User.Identity.Name);
         }
 
         // GET api/Orders/5
         public OrderDTO GetOrder(int id)
         {
-            Order order = db.Orders.Include("OrderDetails.Product")
-                .First(o => o.Id == id && o.Customer == User.Identity.Name);
+            Order order = repository.GetOrder(id, User.Identity.Name);
+               
             if (order == null)
             {
                 throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.NotFound));
@@ -54,8 +59,7 @@ namespace ProductStore.Controllers
                                     select new OrderDetail() { ProductId = item.ProductID, Quantity = item.Quantity }).ToList()
                 };
 
-                db.Orders.Add(order);
-                db.SaveChanges();
+                repository.PostOrder(order);
 
                 HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.Created, order);
                 response.Headers.Location = new Uri(Url.Link("DefaultApi", new { id = order.Id }));
@@ -69,7 +73,7 @@ namespace ProductStore.Controllers
 
         protected override void Dispose(bool disposing)
         {
-            db.Dispose();
+            repository.Dispose();
             base.Dispose(disposing);
         }
     }
