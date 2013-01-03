@@ -1,6 +1,62 @@
 ﻿<div class="content">
+    <!-- List of Categories -->
+    <div style="width:280px;">
+        <h2>List of Categories  </h2>
+<ul id="categorylists" data-bind="foreach: categorylists" class="list-box">
+    <li>  
+          <a href="#" data-bind="click: $root.productsbyID"><span style="color:green;" data-bind="text: CategoryName"></span></a>
+                
+    
+    </li>
+    
+</ul>
+
+   </div>
+    <!--List of products By Category -->
+    <div data-bind = "if: !locker()">
+    <div style=" float: left; width: 300px;margin-left:20px;">
+        <h1>List of products By Category</h1>
+        <ul id="productlists" data-bind="foreach: productlists" class="list-box">
+            <li>
+                <span style="display:none;" data-bind="text: CategoryID"></span>
+                <h3 data-bind="text: Name"></h3>
+                <span class="price" data-bind="text: '$' + Price"></span>
+                <span style="color: green;" data-bind="text: stock"></span>
+
+                <div data-bind="if: $parent.loggedIn">
+                    <button data-bind="click: addItemToCart" class="btn">Add to Order</button>
+                </div>
+            </li>
+        </ul>
+       @*   <table class="details ui-widget-content table">
+            <thead>
+                <tr>
+                    <td>Product Name</td>
+                    <td>Quantity</td>
+                    <td>Price</td>
+                    <td></td>
+                </tr>
+            </thead>
+            <tbody data-bind="foreach: products">
+                <tr>
+                    <td><span data-bind="text: Name"></span></td>
+                     <td class="qty"><span  data-bind="text: stock""></span></td>
+                    <td>$<span  data-bind="text: '$' + Price"></span></td>
+                    <td data-bind="if: $parent.loggedIn"> 
+                    <button data-bind="click: addItemToCart" class="btn">Add to Order</button>
+                 </td>
+                </tr>
+            </tbody>
+        </table>*@
+    </div>
+        </div>
+    <div data-bind = "if: locker()">
+Locked!   
+        </div>         
+<div>
+
     <!-- List of products -->
-    <div style="float: left; width: 300px;">
+    <div style="float: left; width: 300px;margin-left:20px;">
         <h1>Products Available</h1>
         <ul id="products" data-bind="foreach: products" class="list-box">
             <li>
@@ -105,13 +161,22 @@
 
         function AppViewModel() {
             var self = this;
+            
             self.loggedIn = @(Request.IsAuthenticated ? "true" : "false");
-
             self.products = ko.observableArray();
+            self.categorylists = ko.observableArray();
+            self.locker = ko.observable(false);
+           
             self.cart = ko.observableArray();
             self.orders = ko.observableArray();
             self.details = ko.observable();
             self.errorMessage = ko.observable(null);
+            function CategoryViewModel(root, category)
+            {
+                var self = this;
+                self.CategoryName = category.CategoryName;
+                self.CategoryID = category.Id;
+            }
 
             function ProductViewModel(root, product) {
                 var self = this;
@@ -119,8 +184,10 @@
                 self.Name = product.Name;
                 self.Price = product.Price;
                 self.stock = product.Quantity;
+                self.CategoryID = product.CategoryID;
                 self.Quantity = ko.observable(0);
-
+               
+              
                 self.addItemToCart = function () {
                     var Stock = self.stock;
                     var qty = self.Quantity();
@@ -176,6 +243,19 @@
                 self.details(new OrderDetailsViewModel(order));
             }
 
+            self.productsbyID = function (categorylists) {
+                self.locker(true);
+                self.productlists =  ko.observableArray();
+                self.locker(false);
+               
+                $.getJSON("/api/Admin" + '/' + categorylists.CategoryID, function (productlists) {
+                    $.each(productlists, function (index, product) {
+                        self.productlists.push(new ProductViewModel(self, product));
+                        
+                    })
+                });
+            }
+
             self.createOrder = function () {
                 var jqxhr = $.ajax({
                     type: 'POST',
@@ -193,6 +273,15 @@
                     } 
                 });
             }
+
+            //Get Category Lists
+            $.getJSON("/api/ProductCategory", function (categorylists) {
+                $.each(categorylists, function (index, category) {
+                    self.categorylists.push(new CategoryViewModel(self, category));
+                  
+                })
+            });
+
 
             // Initialize the view-model
             $.getJSON("/api/products", function (products) {

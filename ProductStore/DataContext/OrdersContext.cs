@@ -6,7 +6,8 @@ namespace ProductStore.DataContext
     //This provides the glue between the POCO models and the database.
     public class OrdersContext : DbContext
     {
-        public OrdersContext(): base("name=OrdersContext")
+        public OrdersContext()
+            : base("name=DefaultConnection")
         {
         }
         //DbSet represents a set of entities that can be queried.
