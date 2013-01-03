@@ -9,21 +9,19 @@ namespace ProductStore.Interface
 {
     interface IProuctCategoryRepository
     {
-        IEnumerable<ProductCategory> GetProductCategories();
-
-        ProductCategory GetProductCategory(int id);
-
-        void PutProductCategory(int id, ProductCategory productcategory);
-
-        void PostProductCategory(ProductCategory productcategory);
-
-        ProductCategory FindProductCategories(int id);
-
-        void RemoveProductCategories(ProductCategory product);
+        #region Save,Upadate,Delete,Dispose Method.
         void Save();
-
+        void PutProductCategory(int id, ProductCategory productcategory);
+        void PostProductCategory(ProductCategory productcategory);
+        ProductCategory FindProductCategories(int id);
+        void RemoveProductCategories(ProductCategory product);
         void Dispose();
+        #endregion
 
-
+        #region Get Method.
+        IEnumerable<ProductCategory> GetProductCategories();
+        ProductCategory GetProductCategory(int id);
+        #endregion
+    
     }
 }

@@ -17,14 +17,10 @@ namespace ProductStore.Repository
     public class ProductCategoryRepository : IProuctCategoryRepository
     {
         private OrdersContext db = new OrdersContext();
-        public IEnumerable<ProductCategory> GetProductCategories()
-        {
-            return db.ProductCategories.AsEnumerable();
-        }
 
-        public ProductCategory GetProductCategory(int id)
+        public void Save()
         {
-          return  db.ProductCategories.Find(id);
+            db.SaveChanges();
         }
 
         public void PutProductCategory(int id, ProductCategory productcategory)
@@ -39,6 +35,16 @@ namespace ProductStore.Repository
             db.SaveChanges();
         }
 
+        public IEnumerable<ProductCategory> GetProductCategories()
+        {
+            return db.ProductCategories.AsEnumerable();
+        }
+
+        public ProductCategory GetProductCategory(int id)
+        {
+            return db.ProductCategories.Find(id);
+        }
+
         public ProductCategory FindProductCategories(int id)
         {
             return db.ProductCategories.Find(id);
@@ -49,18 +55,11 @@ namespace ProductStore.Repository
             db.ProductCategories.Remove(product);
         }
 
-
-
-        
-
-        public void Save()
-        {
-            db.SaveChanges();
-        }
         public void Dispose()
         {
             db.Dispose();
 
         }
+
     }
 }

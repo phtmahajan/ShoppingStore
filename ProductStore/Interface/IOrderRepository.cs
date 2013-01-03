@@ -9,9 +9,15 @@ namespace ProductStore.Interface
 {
     interface IOrderRepository
     {
-        IEnumerable<Order> GetOrders();
-        Order GetOrder(int id, string name);
+        #region Save,Upadate,Delete,Dispose Method.
         void PostOrder(Order order);
         void Dispose();
+        #endregion
+
+        #region Get Method.
+        IEnumerable<Order> GetOrders();
+        Order GetOrder(int id, string name);
+        #endregion
+
     }
 }

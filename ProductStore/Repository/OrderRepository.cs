@@ -17,21 +17,22 @@ namespace ProductStore.Repository
     public class OrderRepository : IOrderRepository
     {
         private OrdersContext db = new OrdersContext();
-        public IEnumerable<Order> GetOrders()
-        {
-            return db.Orders;
-        }
-
-        public Order GetOrder(int id,string name)
-        {
-            return db.Orders.Include("OrderDetails.Product").First(o => o.Id == id && o.Customer == name);
-             
-        }
 
         public void PostOrder(Order order)
         {
             db.Orders.Add(order);
             db.SaveChanges();
+        }
+
+        public IEnumerable<Order> GetOrders()
+        {
+            return db.Orders;
+        }
+
+        public Order GetOrder(int id, string name)
+        {
+            return db.Orders.Include("OrderDetails.Product").First(o => o.Id == id && o.Customer == name);
+
         }
 
         public void Dispose()

@@ -9,15 +9,21 @@ namespace ProductStore.Interface
 {
     interface IProductRepository
     {
-        IQueryable<ProductDTO> MapProducts();
-        ProductDTO GetProduct(int id);
+        #region Save,Upadate,Delete,Dispose Method.
+        void Save();
+        void RemoveProduct(Product product);
         void Dispose();
-        IEnumerable<Product> GetProducts();
-        IEnumerable<Product> GetAllProduct(int id);
+        #endregion
+
+        #region Get Method.
+        IQueryable<ProductDTO> MapProducts();
         void PutProduct(int id, Product product);
         void PostProduct(Product product);
-        void Save();
         Product FindProduct(int id);
-        void RemoveProduct(Product product);
+        IEnumerable<Product> GetProducts();
+        IEnumerable<Product> GetAllProduct(int id);
+        ProductDTO GetProduct(int id);
+        #endregion
+   
     }
 }
