@@ -15,6 +15,6 @@ namespace ProductStore.Models
         public decimal ActualCost { get; set; }
         public int CategoryID { get; set; }
         public int Quantity { get; set; }
-
+      
     }
 }

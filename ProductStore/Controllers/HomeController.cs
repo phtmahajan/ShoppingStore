@@ -30,16 +30,16 @@ namespace ProductStore.Controllers
         }
 
         [Authorize(Roles = "Administrator")]
-        public ActionResult Admin(string ID)
+        public ActionResult Product(string ID)
         {
-            string apiUri = Url.HttpRouteUrl("DefaultApi", new { controller = "admin", ID = ID });
+            string apiUri = Url.HttpRouteUrl("DefaultApi", new { controller = "Product", ID = ID });
             ViewBag.ApiUrl = new Uri(Request.Url, apiUri).AbsoluteUri.ToString();
             ProductStore.Models.Product model = new Models.Product();
             model.CategoryID = Convert.ToInt32(ID);
             return View(model);
         }
         [Authorize(Roles = "Administrator")]
-        public ActionResult Category()
+        public ActionResult ProductCategory()
         {
 
             string apiUri = Url.HttpRouteUrl("DefaultApi", new { controller = "ProductCategory", });
@@ -50,7 +50,7 @@ namespace ProductStore.Controllers
         [Authorize(Roles = "Administrator")]
         public ActionResult ViewProduct(string ID)
         {
-            string apiUri = Url.HttpRouteUrl("DefaultApi", new { controller = "admin", ID = ID });
+            string apiUri = Url.HttpRouteUrl("DefaultApi", new { controller = "Product", ID = ID });
             ViewBag.ApiUrl = new Uri(Request.Url, apiUri).AbsoluteUri.ToString();
             ProductStore.Models.Product model = new Models.Product();
             model.CategoryID = Convert.ToInt32(ID);

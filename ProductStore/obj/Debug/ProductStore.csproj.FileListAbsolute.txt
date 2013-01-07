@@ -109,6 +109,7 @@ D:\Projects\ShoppingStore\ShoppingStore\ProductStore\bin\EntityFramework.dll
 D:\Projects\ShoppingStore\ShoppingStore\ProductStore\bin\Microsoft.Web.Infrastructure.dll
 D:\Projects\ShoppingStore\ShoppingStore\ProductStore\bin\Microsoft.Web.WebPages.OAuth.dll
 D:\Projects\ShoppingStore\ShoppingStore\ProductStore\bin\Newtonsoft.Json.dll
+D:\Projects\ShoppingStore\ShoppingStore\ProductStore\bin\PagedList.dll
 D:\Projects\ShoppingStore\ShoppingStore\ProductStore\bin\System.Net.Http.Formatting.dll
 D:\Projects\ShoppingStore\ShoppingStore\ProductStore\bin\System.Web.Helpers.dll
 D:\Projects\ShoppingStore\ShoppingStore\ProductStore\bin\System.Web.Http.dll
@@ -122,6 +123,7 @@ D:\Projects\ShoppingStore\ShoppingStore\ProductStore\bin\System.Web.WebPages.Raz
 D:\Projects\ShoppingStore\ShoppingStore\ProductStore\bin\WebGrease.dll
 D:\Projects\ShoppingStore\ShoppingStore\ProductStore\bin\WebMatrix.Data.dll
 D:\Projects\ShoppingStore\ShoppingStore\ProductStore\bin\WebMatrix.WebData.dll
+D:\Projects\ShoppingStore\ShoppingStore\ProductStore\bin\PagedList.xml
 D:\Projects\ShoppingStore\ShoppingStore\ProductStore\bin\EntityFramework.xml
 D:\Projects\ShoppingStore\ShoppingStore\ProductStore\bin\Newtonsoft.Json.xml
 D:\Projects\ShoppingStore\ShoppingStore\ProductStore\bin\System.Net.Http.Formatting.xml
@@ -142,6 +144,8 @@ D:\Projects\ShoppingStore\ShoppingStore\ProductStore\bin\DotNetOpenAuth.OAuth.Co
 D:\Projects\ShoppingStore\ShoppingStore\ProductStore\bin\DotNetOpenAuth.OAuth.xml
 D:\Projects\ShoppingStore\ShoppingStore\ProductStore\bin\DotNetOpenAuth.OpenId.xml
 D:\Projects\ShoppingStore\ShoppingStore\ProductStore\bin\DotNetOpenAuth.OpenId.RelyingParty.xml
-D:\Projects\ShoppingStore\ShoppingStore\ProductStore\obj\Debug\ProductStore.csprojResolveAssemblyReference.cache
+D:\Projects\ShoppingStore\ShoppingStore\ProductStore\obj\Debug\ProductStore.Migrations.InitialCreate.resources
+D:\Projects\ShoppingStore\ShoppingStore\ProductStore\obj\Debug\ProductStore.Migrations.deletecolumn.resources
+D:\Projects\ShoppingStore\ShoppingStore\ProductStore\obj\Debug\ProductStore.csproj.GenerateResource.Cache
 D:\Projects\ShoppingStore\ShoppingStore\ProductStore\obj\Debug\ProductStore.dll
 D:\Projects\ShoppingStore\ShoppingStore\ProductStore\obj\Debug\ProductStore.pdb

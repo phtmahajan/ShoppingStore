@@ -78,14 +78,14 @@
             }
 
             self.update = function (product) {
-                $.ajax({ type: "PUT", url: "/api/admin" + '/' + product.Id, data: product });
+                $.ajax({ type: "PUT", url: "/api/Product" + '/' + product.Id, data: product });
             }
 
 
             self.remove = function (product) {
                 // First remove from the server, then from the UI
 
-                $.ajax({ type: "DELETE", url: "/api/admin" + '/' + product.Id })
+                $.ajax({ type: "DELETE", url: "/api/Product" + '/' + product.Id })
                 .done(function () { self.products.remove(product); });
             }
 

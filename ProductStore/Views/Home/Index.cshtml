@@ -200,7 +200,7 @@ Locked!
                     }
                     else
                     {
-                        alert("Stop");
+                        alert("Not Available");
                     }
 
 
@@ -248,7 +248,7 @@ Locked!
                 self.productlists =  ko.observableArray();
                 self.locker(false);
                
-                $.getJSON("/api/Admin" + '/' + categorylists.CategoryID, function (productlists) {
+                $.getJSON("/api/Product" + '/' + categorylists.CategoryID, function (productlists) {
                     $.each(productlists, function (index, product) {
                         self.productlists.push(new ProductViewModel(self, product));
                         
@@ -284,7 +284,7 @@ Locked!
 
 
             // Initialize the view-model
-            $.getJSON("/api/products", function (products) {
+            $.getJSON("/api/ProductDetail", function (products) {
                 $.each(products, function (index, product) {
                     self.products.push(new ProductViewModel(self, product));
                 })
